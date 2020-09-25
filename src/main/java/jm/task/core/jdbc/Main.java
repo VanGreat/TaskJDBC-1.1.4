@@ -18,6 +18,9 @@ public class Main {
         userService.saveUser("Angela", "Merkel", (byte) 66);
         userService.saveUser("Bill", "Gates", (byte) 64);
 
+        // Удаление пользователя id=2
+        userService.removeUserById(1);
+
         //Получение всех User из базы и вывод в консоль
         System.out.println(userService.getAllUsers());
 

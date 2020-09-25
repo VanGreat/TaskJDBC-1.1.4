@@ -16,7 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         try (Connection connection = Util.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS `pre-project-1.1.3`.`user` (" +
+                    "CREATE TABLE IF NOT EXISTS `pre-project`.`user` (" +
                             "`id` BIGINT NOT NULL AUTO_INCREMENT, " +
                             "`name` VARCHAR(255) NOT NULL, " +
                             "`lastName` VARCHAR(255) NOT NULL, " +
@@ -24,10 +24,10 @@ public class UserDaoJDBCImpl implements UserDao {
                             "PRIMARY KEY (`id`), " +
                             "UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);");
             ps.executeUpdate();
-            System.out.println("База данных `user` создана!");
+            System.out.println("База данных [user] создана!");
 
         } catch (SQLException exc) {
-            System.out.println("Ошибка создания БД");
+            System.out.println("Ошибка создания базы данных [user]");
             exc.getStackTrace();
         }
     }
@@ -35,12 +35,12 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         try (Connection connection = Util.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(
-                    "DROP TABLE IF EXISTS `pre-project-1.1.3`.`user`;");
+                    "DROP TABLE IF EXISTS `pre-project`.`user`;");
             ps.executeUpdate();
-            System.out.println("База данных `user` удалена!");
+            System.out.println("База данных [user] удалена!");
 
         } catch (SQLException exc) {
-            System.out.println("Ошибка удаления БД");
+            System.out.println("Ошибка удаления базы данных [user]");
             exc.getStackTrace();
         }
     }
@@ -48,15 +48,15 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) {
         try (Connection connection = Util.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO `pre-project-1.1.3`.`user` (`name`, `lastName`, `age`) VALUES (?, ?, ?);");
+                    "INSERT INTO `pre-project`.`user` (`name`, `lastName`, `age`) VALUES (?, ?, ?);");
             ps.setString(1, name);
             ps.setString(2, lastName);
             ps.setByte(3, age);
             ps.executeUpdate();
-            System.out.println("User с именем – " + name + " добавлен в базу данных `user`!");
+            System.out.println("Пользователь [name = " + name + "] добавлен в базу данных [user]!");
 
         } catch (SQLException exc) {
-            System.out.println("Ошибка сохранения пользователья в БД");
+            System.out.println("Ошибка сохранения пользователья в базе данных [user]");
             exc.getStackTrace();
         }
     }
@@ -64,14 +64,14 @@ public class UserDaoJDBCImpl implements UserDao {
     public void removeUserById(long id) {
         try (Connection connection = Util.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(
-                    "DELETE FROM `pre-project-1.1.3`.`user` WHERE (`id` = ?);");
+                    "DELETE FROM `pre-project`.`user` WHERE (`id` = ?);");
             ps.setLong(1, id);
             ps.executeUpdate();
 
-            System.out.println("User c id - " + id + " удален из базы данных `user`!");
+            System.out.println("Пользователь [id = " + id + "] удален из базы данных [user]!");
 
         } catch (SQLException exc) {
-            System.out.println("Ошибка удаления пользователя из БД");
+            System.out.println("Ошибка удаления пользователя из базы данных [user]");
             exc.getStackTrace();
         }
     }
@@ -80,7 +80,7 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> listAllUsers = new ArrayList<>();
 
         try (Connection connection = Util.getConnection()) {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `pre-project-1.1.3`.`user`;");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `pre-project`.`user`;");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -93,7 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
             }
 
         } catch (SQLException exc) {
-            System.out.println("Ошибка получения списка всех пользователей из БД");
+            System.out.println("Ошибка получения списка всех пользователей из базы данных [user]");
             exc.getStackTrace();
         }
         return listAllUsers;
@@ -101,12 +101,12 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() {
         try (Connection connection = Util.getConnection()) {
-            PreparedStatement ps = connection.prepareStatement("TRUNCATE `pre-project-1.1.3`.`user`;");
+            PreparedStatement ps = connection.prepareStatement("TRUNCATE `pre-project`.`user`;");
             ps.executeUpdate();
-            System.out.println("База данных `user` очищена!");
+            System.out.println("База данных [user] очищена!");
 
         } catch (SQLException exc) {
-            System.out.println("Ошибка очистки БД");
+            System.out.println("Ошибка очистки базы данных [user]");
             exc.getStackTrace();
         }
     }
